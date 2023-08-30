@@ -1,0 +1,20 @@
+<app-loading-bar *ngIf="!dayPassedPercentage"></app-loading-bar>
+<main *ngIf="dayPassedPercentage && sunInfo && currentHMS">
+    <ng-container *ngIf="isNight">
+        <p>Time to sunrise: {{ timeToSunrise }}</p>
+    </ng-container>
+    <ng-container *ngIf="!isNight">
+        <app-progress-bar
+            label="Day passed:"
+            [passedPercentage]="dayPassedPercentage"
+            [colors]="{ '0': '#00cbcb', '51': '#f9c3d3', '75': '#fd8c8e' }"
+        ></app-progress-bar>
+        <app-progress-bar
+            label="Day left:"
+            [passedPercentage]="dayLeftPercentage"
+            [colors]="{ '0': '#fd8c8e', '25': '#f9c3d3', '50': '#00cbcb' }"
+        ></app-progress-bar>
+        <p>Time to sunset: {{ timeToSunset }}</p>
+    </ng-container>
+    <app-sun-info [sunInfo]="localSunInfo" [currentHMS]="currentHMS"> </app-sun-info>
+</main>
