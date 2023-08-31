@@ -10,6 +10,6 @@ export class SunInfoComponent implements OnInit {
   @Input() currentHMS: string
   constructor() { }
 
-  ngOnInit(): void { console.log(this.sunInfo) }
+  ngOnInit(): void { }
 
 }
