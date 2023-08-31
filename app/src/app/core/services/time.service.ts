@@ -7,11 +7,11 @@ export class TimeService {
 
   constructor() { }
 
-  getCurrentHM(date: Date): string { return date.getUTCHours().toString() + ':' + date.getUTCMinutes().toString(); }
+  getCurrentHM(date: Date, utcOffset: number): string { return (date.getUTCHours() + utcOffset).toString() + ':' + date.getUTCMinutes().toString(); }
 
-  getCurrentHMS(date: Date): string {
+  getCurrentHMS(date: Date, utcOffset: number): string {
     let seconds: string = date.getUTCSeconds().toString();
-    return date.getUTCHours().toString() + ':' + date.getUTCMinutes().toString() + ':' + (seconds.length < 2 ? ('0' + seconds) : seconds)
+    return (date.getUTCHours() + utcOffset).toString() + ':' + date.getUTCMinutes().toString() + ':' + (seconds.length < 2 ? ('0' + seconds) : seconds)
   }
 
   calcDayLength(sunriseInMin: number, sunsetInMin: number): number {
@@ -27,11 +27,22 @@ export class TimeService {
   }
 
   UTCToLocalMinutes(UTC: string, utcOffset: number): number {
+    const HM = this.UTCToHM(UTC)
+    return (parseInt(HM[0], 10) + utcOffset) * 60 + parseInt(HM[1], 10);
+  }
+
+  UTCToMinutes(UTC: string) {
+    const HM = this.UTCToHM(UTC)
+    return (parseInt(HM[0], 10)) * 60 + parseInt(HM[1], 10);
+
+  }
+
+  UTCToHM(UTC: string) {
     let HM = UTC.split(':').filter((item, idx) => idx < 2);
     if (UTC.includes('PM')) {
       HM[0] = (parseInt(HM[0], 10) + 12).toString();
     }
-    return (parseInt(HM[0], 10) + utcOffset) * 60 + parseInt(HM[1], 10);
+    return HM
   }
 
   convertMinsToHrsMins(mins: number): string {

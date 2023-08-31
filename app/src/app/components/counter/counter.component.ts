@@ -30,8 +30,8 @@ export class CounterComponent implements OnInit {
   constructor(private locationService: LocationService, private sunService: SunriseSunsetService, private timeService: TimeService) {
     this.utcOffset = this.timeService.utcOffset();
     this.clock.pipe(distinctUntilChanged()).subscribe((date: Date) => {
-      this.currentHM = this.timeService.getCurrentHM(date);
-      this.currentHMS = this.timeService.getCurrentHMS(date);
+      this.currentHM = this.timeService.getCurrentHM(date, this.utcOffset);
+      this.currentHMS = this.timeService.getCurrentHMS(date, this.utcOffset);
       if (this.sunInfo) {
         this.calcData(this.sunInfo);
       }
@@ -47,17 +47,23 @@ export class CounterComponent implements OnInit {
     this.localSunInfo = this.timeService.convertSunInfoToLocalTime(sunInfo, this.utcOffset)
     const sunriseInMin = this.timeService.UTCToLocalMinutes(sunInfo.results.sunrise, this.utcOffset);
     const sunsetInMin = this.timeService.UTCToLocalMinutes(sunInfo.results.sunset, this.utcOffset);
-    const currentInMin = this.timeService.UTCToLocalMinutes(this.currentHM, this.utcOffset);
+    const currentInMin = this.timeService.UTCToMinutes(this.currentHM);
     this.dayPassedPercentage = Number(this.timeService.calcDayPassed(sunriseInMin, sunsetInMin, currentInMin).toFixed(2));
     this.dayLeftPercentage = Number(this.timeService.calcDayLeft(sunriseInMin, sunsetInMin, currentInMin).toFixed(2));
     if (this.dayPassedPercentage > 100 || this.dayPassedPercentage < 0) {
       this.isNight = true;
       this.dayPassedPercentage = 100;
       this.dayLeftPercentage = 0;
-      this.timeToSunrise = this.timeService.convertMinsToHrsMins(this.timeService.hourDiff(sunriseInMin, currentInMin));
+      this.timeToSunrise = this.timeService.convertToLocalHM(
+        this.timeService.convertMinsToHrsMins(
+          this.timeService.hourDiff(sunriseInMin, currentInMin)), this.utcOffset
+      );
     } else {
       this.isNight = false;
-      this.timeToSunset = this.timeService.convertMinsToHrsMins(this.timeService.hourDiff(sunsetInMin, currentInMin));
+      this.timeToSunset = this.timeService.convertToLocalHM(
+        this.timeService.convertMinsToHrsMins(
+          this.timeService.hourDiff(sunsetInMin, currentInMin)), this.utcOffset
+      );
     };
   }
 
