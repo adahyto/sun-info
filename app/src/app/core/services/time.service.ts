@@ -13,8 +13,6 @@ export class TimeService {
     let seconds: string = date.getUTCSeconds().toString();
     let minutes: string = date.getUTCMinutes().toString();
     let hours: string = (date.getUTCHours() + utcOffset).toString();
-
-    console.log(hours, date.getUTCHours())
     return (hours.length < 2 ? ('0' + hours) : hours) + ':' + (minutes.length < 2 ? ('0' + minutes) : minutes) + ':' + (seconds.length < 2 ? ('0' + seconds) : seconds)
   }
 
