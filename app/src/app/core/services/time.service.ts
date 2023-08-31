@@ -12,7 +12,8 @@ export class TimeService {
   getCurrentHMS(date: Date, utcOffset: number): string {
     let seconds: string = date.getUTCSeconds().toString();
     let minutes: string = date.getUTCMinutes().toString();
-    return (date.getUTCHours() + utcOffset).toString() + ':' + (minutes.length < 2 ? ('0' + minutes) : minutes) + ':' + (seconds.length < 2 ? ('0' + seconds) : seconds)
+    let hours: string = (date.getUTCHours() + utcOffset).toString();
+    return (hours.length < 2 ? ('0' + hours) : hours) + ':' + (minutes.length < 2 ? ('0' + minutes) : minutes) + ':' + (seconds.length < 2 ? ('0' + seconds) : seconds)
   }
 
   calcDayLength(sunriseInMin: number, sunsetInMin: number): number {
