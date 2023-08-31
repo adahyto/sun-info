@@ -57,7 +57,7 @@ export class CounterComponent implements OnInit {
       this.timeToSunrise = this.timeService.convertMinsToHrsMins(this.timeService.hourDiff(sunriseInMin, currentInMin));
     } else {
       this.isNight = false;
-      this.timeToSunset = this.timeService.convertMinsToHrsMins(this.timeService.hourDiff(currentInMin, sunsetInMin));
+      this.timeToSunset = this.timeService.convertMinsToHrsMins(this.timeService.hourDiff(sunsetInMin, currentInMin));
     };
   }
 
