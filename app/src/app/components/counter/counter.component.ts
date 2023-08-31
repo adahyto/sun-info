@@ -54,16 +54,16 @@ export class CounterComponent implements OnInit {
       this.isNight = true;
       this.dayPassedPercentage = 100;
       this.dayLeftPercentage = 0;
-      this.timeToSunrise = this.timeService.convertToLocalHM(
+      this.timeToSunrise =
         this.timeService.convertMinsToHrsMins(
           this.timeService.hourDiff(sunriseInMin, currentInMin)), this.utcOffset
-      );
+        ;
     } else {
       this.isNight = false;
-      this.timeToSunset = this.timeService.convertToLocalHM(
+      this.timeToSunset =
         this.timeService.convertMinsToHrsMins(
           this.timeService.hourDiff(sunsetInMin, currentInMin)), this.utcOffset
-      );
+        ;
     };
   }
 
