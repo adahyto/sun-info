@@ -9,7 +9,10 @@ export class TimeService {
 
   getCurrentHM(date: Date): string { return date.getUTCHours().toString() + ':' + date.getUTCMinutes().toString(); }
 
-  getCurrentHMS(date: Date): string { return date.getUTCHours().toString() + ':' + date.getUTCMinutes().toString() + ':' + date.getUTCSeconds().toString() }
+  getCurrentHMS(date: Date): string {
+    let seconds: string = date.getUTCSeconds().toString();
+    return date.getUTCHours().toString() + ':' + date.getUTCMinutes().toString() + ':' + (seconds.length < 2 ? ('0' + seconds) : seconds)
+  }
 
   calcDayLength(sunriseInMin: number, sunsetInMin: number): number {
     return sunsetInMin - sunriseInMin;
@@ -56,7 +59,7 @@ export class TimeService {
       astronomical_twilight_end: this.convertToLocalHM(sunInfo.results.astronomical_twilight_end, utcOffset),
       civil_twilight_begin: this.convertToLocalHM(sunInfo.results.civil_twilight_begin, utcOffset),
       civil_twilight_end: this.convertToLocalHM(sunInfo.results.civil_twilight_end, utcOffset),
-      day_length: this.convertToLocalHM(sunInfo.results.day_length, utcOffset),
+      day_length: sunInfo.results.day_length, utcOffset,
       nautical_twilight_begin: this.convertToLocalHM(sunInfo.results.nautical_twilight_begin, utcOffset),
       nautical_twilight_end: this.convertToLocalHM(sunInfo.results.nautical_twilight_end, utcOffset),
       solar_noon: this.convertToLocalHM(sunInfo.results.solar_noon, utcOffset)
