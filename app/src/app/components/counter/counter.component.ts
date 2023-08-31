@@ -50,7 +50,7 @@ export class CounterComponent implements OnInit {
     const currentInMin = this.timeService.UTCToLocalMinutes(this.currentHM, this.utcOffset);
     this.dayPassedPercentage = Number(this.timeService.calcDayPassed(sunriseInMin, sunsetInMin, currentInMin).toFixed(2));
     this.dayLeftPercentage = Number(this.timeService.calcDayLeft(sunriseInMin, sunsetInMin, currentInMin).toFixed(2));
-    if (this.dayPassedPercentage > 100) {
+    if (this.dayPassedPercentage > 100 || this.dayPassedPercentage < 0) {
       this.isNight = true;
       this.dayPassedPercentage = 100;
       this.dayLeftPercentage = 0;
