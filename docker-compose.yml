@@ -1,13 +1,14 @@
 version: "3"
 services:
   nodeserver:
+    restart: always
     build:
       context: ./app
     ports:
-      - "80:3003"
+      - "82:3003"
   nginx:
     restart: always
     build:
       context: ./nginx
     ports:
-      - "87:80"
+      - "87:82"
