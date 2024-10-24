@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SunInfoComponent implements OnInit {
   @Input() sunInfo: any;
-  @Input() currentHMS: string
+  @Input() currentHM: string
   constructor() { }
 
   ngOnInit(): void { }
