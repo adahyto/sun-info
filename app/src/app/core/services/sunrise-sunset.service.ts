@@ -17,8 +17,11 @@ export class SunriseSunsetService {
                 `
                 )
                 .subscribe((res) => {
-                    resolve({ ...res, day_length: this.timeService.convertMinsToHrsMins(this.timeService.UTCToMinutes(res.day_length)) });
+                    this.convertIt(res)
+                    resolve(res);
                 });
         });
     }
+
+
 }
