@@ -17,7 +17,6 @@ export class SunriseSunsetService {
                 `
                 )
                 .subscribe((res) => {
-                    this.convertIt(res)
                     resolve(res);
                 });
         });
