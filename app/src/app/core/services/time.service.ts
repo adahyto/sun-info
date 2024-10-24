@@ -52,7 +52,7 @@ export class TimeService {
     let m: string | number = mins % 60;
     h = h < 10 ? '0' + h : h;
     m = m < 10 ? '0' + m : m;
-    return `${h}:${m}`;
+    return `${h}h ${m}min`;
   }
 
   convertToLocalHM(UTC: string, utcOffset: number): string {

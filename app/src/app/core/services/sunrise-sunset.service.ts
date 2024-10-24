@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
+import { TimeService } from './time.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SunriseSunsetService {
-    constructor(private apiService: ApiService) {}
+    constructor(private apiService: ApiService, private timeService: TimeService) { }
 
     getSunTimes(coords): Promise<any> {
         return new Promise<any>((resolve, reject) => {
@@ -16,7 +17,7 @@ export class SunriseSunsetService {
                 `
                 )
                 .subscribe((res) => {
-                    resolve(res);
+                    resolve({ ...res, day_length: this.timeService.convertMinsToHrsMins(this.timeService.UTCToMinutes(res.day_length)) });
                 });
         });
     }
